@@ -7,35 +7,26 @@
 using namespace std;
 
 int main() {
-    vector<int> nums;
     srand(time(NULL));
-    fstream fileIn, fileOut;
-    fileIn.open( "dane.txt", ios::in);
-    fileOut.open("pary.txt", ios::out);
-    int s = 0;
-    if(fileIn.good()){
-        int n;
-        while (fileIn >> n) {
-            nums.push_back(n); s++;
+    fstream file;
+    vector <int> v;
+    file.open( "dane.txt", ios::out );
+    if(file.good()){
+        while(v.size()<100) {
+            int k = rand()%1000+1;
+            bool isUnique = true;
+            for(int i = 0; i < v.size(); i++){
+                if(v[i]==k) {
+                    isUnique = false;
+                    break;
+                }
+            }
+            if(isUnique) {
+                v.push_back(k);
+                file << k << endl;
+            }
         }
     }
-    fileIn.close();
-
-    for(int i = 0; i < s/2; i++){
-        int a, b;
-        a = rand()%nums.size();
-
-
-        fileOut << nums[a]<<" - ";
-
-        nums.erase(nums.begin()+a);
-
-        b = rand()%nums.size();
-        fileOut << nums[b]<<endl;
-        nums.erase(nums.begin()+b);
-
-    }
-
-    fileOut.close();
+    file.close();
 
 }
